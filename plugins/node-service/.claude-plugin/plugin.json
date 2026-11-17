@@ -1,0 +1,8 @@
+{
+  "name": "node-service",
+  "version": "1.4.0",
+  "description": "Conventions for TypeScript/Express services",
+  "author": {
+    "name": "Shop platform team"
+  }
+}

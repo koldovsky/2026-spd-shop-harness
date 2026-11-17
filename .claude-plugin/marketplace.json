@@ -1,0 +1,32 @@
+{
+  "name": "shop-harness",
+  "owner": {
+    "name": "Shop platform team"
+  },
+  "metadata": {
+    "description": "Shared agent harness for the Shop repos (SPD Team AI Engineering demo)",
+    "version": "1.4.0"
+  },
+  "plugins": [
+    {
+      "name": "team-core",
+      "source": "./plugins/team-core",
+      "description": "Team skills (create-pr, handoff), reviewer subagent, protect-paths hook"
+    },
+    {
+      "name": "kotlin-service",
+      "source": "./plugins/kotlin-service",
+      "description": "Conventions for Kotlin + Spring Boot services"
+    },
+    {
+      "name": "node-service",
+      "source": "./plugins/node-service",
+      "description": "Conventions for TypeScript/Express services"
+    },
+    {
+      "name": "web",
+      "source": "./plugins/web",
+      "description": "Conventions for the Next.js web app and BFF"
+    }
+  ]
+}
