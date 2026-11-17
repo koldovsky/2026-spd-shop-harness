@@ -1,5 +1,8 @@
 # Changelog
 
+## Unreleased
+- team-core: `protect-paths` creates `.claude/hooks/` for its log, so the log appears in a fresh clone.
+
 ## 1.5.0 — 2026-11-19
 - team-core: new `api-errors` skill. Replaces the drifted per-repo copies of the API error rule in shop-orders, shop-web and shop-pricing.
 

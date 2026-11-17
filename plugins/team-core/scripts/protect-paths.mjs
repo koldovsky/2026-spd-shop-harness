@@ -4,7 +4,7 @@
 // .claude/protected-paths.json: { "immutable": ["src/main/resources/db/migration/", "db/migrations/"] }.
 // Without that file the defaults below apply. New files are allowed.
 // owner: @koldovsky · why: applied migrations were edited by agents · review-by: 2027-02-19
-import { appendFileSync, existsSync, readFileSync } from "node:fs";
+import { appendFileSync, existsSync, mkdirSync, readFileSync } from "node:fs";
 import { join, relative, resolve } from "node:path";
 
 const DEFAULTS = ["src/main/resources/db/migration/", "db/migrations/", "migrations/"];
@@ -23,7 +23,7 @@ const abs = resolve(projectDir, filePath);
 const rel = relative(projectDir, abs).split("\\").join("/");
 const hit = immutable.find((p) => rel.startsWith(p));
 if (hit && existsSync(abs)) {
-  try { appendFileSync(join(projectDir, ".claude/hooks/protect-paths.log"), `${new Date().toISOString()} BLOCK ${input.tool_name} ${rel}\n`); } catch {}
+  try { mkdirSync(join(projectDir, ".claude/hooks"), { recursive: true }); appendFileSync(join(projectDir, ".claude/hooks/protect-paths.log"), `${new Date().toISOString()} BLOCK ${input.tool_name} ${rel}\n`); } catch {}
   process.stderr.write(`Blocked by team-core protect-paths: ${rel} is under ${hit}, which is immutable. Add a new file instead.\n`);
   process.exit(2);
 }
