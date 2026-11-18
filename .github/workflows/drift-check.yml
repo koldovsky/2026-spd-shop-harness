@@ -1,7 +1,7 @@
 # Reusable workflow. In a service repo:
 #   jobs:
 #     drift:
-#       uses: koldovsky/shop-harness/.github/workflows/drift-check.yml@main
+#       uses: koldovsky/2026-spd-shop-harness/.github/workflows/drift-check.yml@main
 name: harness drift check
 on:
   workflow_call: {}
@@ -12,7 +12,7 @@ jobs:
       - uses: actions/checkout@v4
       - uses: actions/checkout@v4
         with:
-          repository: koldovsky/shop-harness
+          repository: koldovsky/2026-spd-shop-harness
           path: .shop-harness
           fetch-depth: 0
       - uses: actions/setup-node@v4

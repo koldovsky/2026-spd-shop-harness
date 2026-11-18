@@ -1,4 +1,4 @@
-# shop-harness
+# 2026-spd-shop-harness
 
 The shared agent harness for the Shop demo repos, published as a **Claude Code plugin marketplace**.
 Used in the SPD «Team AI Engineering» workshop, Session 1, Demo 2.
@@ -20,7 +20,7 @@ Commit this to the repo's `.claude/settings.json`, pinned to a tag:
 ```json
 {
   "extraKnownMarketplaces": {
-    "shop-harness": { "source": { "source": "github", "repo": "koldovsky/shop-harness", "ref": "v1.5.0" } }
+    "shop-harness": { "source": { "source": "github", "repo": "koldovsky/2026-spd-shop-harness", "ref": "v1.5.0" } }
   },
   "enabledPlugins": { "team-core@shop-harness": true, "kotlin-service@shop-harness": true }
 }
