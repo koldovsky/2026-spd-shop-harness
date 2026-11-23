@@ -1,0 +1,49 @@
+# Reusable diff-size gate (rules: docs/gates.md). Caller in a service repo: templates/pr-gates.yml.
+# harness-ref picks the version of ci/diff-size.mjs; its default is the tag this file ships in.
+name: diff-size gate
+on:
+  workflow_call:
+    inputs:
+      warn:
+        description: Warn above this many changed lines
+        type: number
+        default: 200
+      fail:
+        description: Fail above this many changed lines
+        type: number
+        default: 400
+      exclude:
+        description: Extra globs that don't count, comma- or newline-separated (e.g. 'parity/corpus/**')
+        type: string
+        default: ''
+      harness-ref:
+        description: Ref of koldovsky/2026-spd-shop-harness to take the script from
+        type: string
+        default: v1.6.0
+permissions:
+  contents: read
+jobs:
+  size:
+    name: diff-size gate
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: ${{ github.event.pull_request.head.sha }}
+          fetch-depth: 0
+      - uses: actions/checkout@v4
+        with:
+          repository: koldovsky/2026-spd-shop-harness
+          ref: ${{ inputs.harness-ref }}
+          path: .shop-harness
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 24
+      - name: Changed lines without lockfiles, generated files and evidence
+        env:
+          BASE_SHA: ${{ github.event.pull_request.base.sha }}
+          HEAD_SHA: ${{ github.event.pull_request.head.sha }}
+          SIZE_WARN: ${{ inputs.warn }}
+          SIZE_FAIL: ${{ inputs.fail }}
+          SIZE_EXCLUDE: ${{ inputs.exclude }}
+        run: node .shop-harness/ci/diff-size.mjs

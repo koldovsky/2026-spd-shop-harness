@@ -10,3 +10,7 @@ jobs:
     uses: ./.github/workflows/trace-gate.yml
     with:
       harness-ref: ${{ github.event.pull_request.head.sha }}
+  size:
+    uses: ./.github/workflows/diff-size.yml
+    with:
+      harness-ref: ${{ github.event.pull_request.head.sha }}
