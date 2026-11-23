@@ -1,0 +1,12 @@
+# The harness runs its own gates on its PRs, with the scripts from the PR head.
+name: PR gates
+on:
+  pull_request:
+    types: [opened, synchronize, reopened, edited]
+permissions:
+  contents: read
+jobs:
+  trace:
+    uses: ./.github/workflows/trace-gate.yml
+    with:
+      harness-ref: ${{ github.event.pull_request.head.sha }}
