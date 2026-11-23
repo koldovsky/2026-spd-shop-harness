@@ -26,3 +26,5 @@ jobs:
             grep -q "review-by:" "$f" || { echo "::error file=$f::missing review-by"; fail=1; }
           done
           exit $fail
+      - name: Gate scripts pass their unit tests
+        run: node --test "ci/*.test.mjs"
