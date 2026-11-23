@@ -20,7 +20,7 @@ Commit this to the repo's `.claude/settings.json`, pinned to a tag:
 ```json
 {
   "extraKnownMarketplaces": {
-    "shop-harness": { "source": { "source": "github", "repo": "koldovsky/2026-spd-shop-harness", "ref": "v1.5.0" } }
+    "shop-harness": { "source": { "source": "github", "repo": "koldovsky/2026-spd-shop-harness", "ref": "v1.6.0" } }
   },
   "enabledPlugins": { "team-core@shop-harness": true, "kotlin-service@shop-harness": true }
 }
@@ -38,4 +38,6 @@ A repo can ask, not force: enabled is not installed until each person installs.
 
 - Changes by PR only; `.github/CODEOWNERS` names the owners. Every skill, agent and script carries `owner`, `why`, `review-by`.
 - Release = a tag `vX.Y.Z` plus a `CHANGELOG.md` entry. Service repos move by a bump PR.
+- PR gates (v1.6.0+): trace gate and diff-size gate, reusable workflows for service repos. Copy
+  `templates/pr-gates.yml` to `.github/workflows/`; rules and thresholds in [docs/gates.md](docs/gates.md).
 - `ci/drift-check.mjs` runs in each service repo (reusable workflow `.github/workflows/drift-check.yml`): pinned ref vs latest tag, shadow copies of shared skills, rules past `review-by`.

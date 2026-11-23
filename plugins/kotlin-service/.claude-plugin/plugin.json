@@ -1,6 +1,6 @@
 {
   "name": "kotlin-service",
-  "version": "1.5.0",
+  "version": "1.6.0",
   "description": "Conventions for Kotlin + Spring Boot services",
   "author": {
     "name": "Shop platform team"

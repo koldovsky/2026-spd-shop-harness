@@ -42,6 +42,34 @@ node ../2026-spd-shop-harness/ci/trace-gate.mjs --base origin/main --head HEAD -
 
 Exit code 0 = pass, 1 = rule failed, 2 = no PR context (missing `--base` or `--title`).
 
+## Diff-size gate — `ci/diff-size.mjs`
+
+Changed lines = added + deleted lines in `git diff base...head` (the PR's own changes since the merge base;
+renames count only their edits, binary files count 0).
+
+- **Fails** above `fail` changed lines (default **400**, the same limit as the `create-pr` skill).
+- **Warns** above `warn` (default **200**).
+- These defaults are a team choice, not a measurement. Set them per repo with the workflow inputs.
+
+These files don't count:
+
+- **Lockfiles:** `package-lock.json`, `npm-shrinkwrap.json`, `pnpm-lock.yaml`, `yarn.lock`, `bun.lock(b)`, `go.sum`,
+  `Cargo.lock`, `poetry.lock`, `Pipfile.lock`, `uv.lock`, `Gemfile.lock`, `composer.lock`, `*.lockfile`.
+- **Generated files:**
+  - `gradlew`, `gradlew.bat`, `**/gradle/wrapper/**`;
+  - `*.min.js`, `*.min.css`, `*.map`;
+  - `**/generated/**`, `*.generated.*`, `*.pb.go`;
+  - `**/__snapshots__/**`;
+  - any path marked `linguist-generated` in `.gitattributes`.
+- **Evidence:** `docs/evidence/**`. It is raw command output, read on demand.
+- **Your own globs:** anything matched by the `exclude` input, for example recorded test data such as `parity/corpus/**`.
+
+Globs work like `.gitignore`. A name without `/` matches anywhere. `**` crosses folders and `*` doesn't.
+
+```bash
+node ../2026-spd-shop-harness/ci/diff-size.mjs --base origin/main --head HEAD --fail 400 --exclude "parity/corpus/**"
+```
+
 ## Using the gates in a service repo
 
 Copy [`templates/pr-gates.yml`](../templates/pr-gates.yml) to `.github/workflows/pr-gates.yml`. It calls the
@@ -50,6 +78,7 @@ reusable workflows pinned to a tag. The `edited` trigger re-runs the gate when s
 | Reusable workflow | Inputs (defaults) |
 |---|---|
 | `.github/workflows/trace-gate.yml` | `key-pattern` (`[A-Z][A-Z0-9]+-[0-9]+`), `evidence-dir` (`docs/evidence/`), `harness-ref` (the tag the file ships in) |
+| `.github/workflows/diff-size.yml` | `warn` (200), `fail` (400), `exclude` (empty), `harness-ref` (the tag the file ships in) |
 
 `harness-ref` selects the version of the script. Its default equals the release tag, so `@v1.6.0` runs the
 v1.6.0 scripts. The harness's own `pr-gates.yml` passes the PR head SHA instead, so a harness PR is checked by
