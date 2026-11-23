@@ -1,5 +1,8 @@
 # Changelog
 
+## 1.6.1 — 2026-11-23
+- team-core: `create-pr` follows the 1.6.0 gates: requirement key, `Refs:`/`Assisted-by:` trailers, an evidence file that names the verified head SHA, and no `Reviewed-by:` for a review that did not happen (HARNESS-2).
+
 ## 1.6.0 — 2026-11-23
 - PR gates (HARNESS-1), rules in `docs/gates.md`:
   - **trace gate** `ci/trace-gate.mjs`: key in the PR title, `Refs:` on every commit, an evidence file that names the verified head revision;

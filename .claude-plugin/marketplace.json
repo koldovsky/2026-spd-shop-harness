@@ -5,7 +5,7 @@
   },
   "metadata": {
     "description": "Shared agent harness for the Shop repos (SPD Team AI Engineering demo)",
-    "version": "1.6.0"
+    "version": "1.6.1"
   },
   "plugins": [
     {
